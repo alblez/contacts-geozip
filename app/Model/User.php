@@ -64,4 +64,20 @@ class User extends AppModel {
 			'foreignKey' => 'group_id',
 		)
 	);
+
+/**
+ *  getAgents method
+ * Extrae todos los agentes
+ * @return array
+ */
+	public  function getAgents()
+	{
+		return $this->find(
+				'all',
+				[
+				'fields'  => ['id','code','name'],
+				'conditions' => ['group_id' => 1],
+				]);
+	}
+
 }

@@ -19,11 +19,11 @@ class UsersController extends AppController {
 	public $components = array('Paginator', 'Session', 'Flash');
 
 /**
- * index method
+ * list method
  *
  * @return void
  */
-	public function index() {
+	public function lists() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
 	}
@@ -63,49 +63,13 @@ class UsersController extends AppController {
 	}
 
 /**
- * edit method
+ * index method
  *
- * @throws NotFoundException
- * @param string $id
  * @return void
  */
-	public function edit($id = null) {
-		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->User->save($this->request->data)) {
-				$this->Flash->success(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The user could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-			$this->request->data = $this->User->find('first', $options);
-		}
-		$groups = $this->User->Group->find('list');
-		$this->set(compact('groups'));
-	}
-
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->User->delete()) {
-			$this->Flash->success(__('The user has been deleted.'));
-		} else {
-			$this->Flash->error(__('The user could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
+	public function index() {
+		// recupera los usuarios agentes
+		$agents = $this->User->getAgents();
+		$this->set('agents', $agents);
 	}
 }
