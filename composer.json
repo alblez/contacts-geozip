@@ -1,0 +1,30 @@
+{
+    "name": "ejercicio/geozip",
+    "description": "Agents match Contacs by zip code",
+    "authors": [
+        {
+            "name": "Jose alberto Gonzalez rouille",
+            "email": "spin.jag@gmail.com"
+        }
+    ],
+    "require": {
+        "cakephp/cakephp": "2.8.*",
+        "php": ">=5.4.0",
+        "ext-mcrypt": "*",
+        "cakephp/debug_kit" : "^2.2.0",
+        "dereuromark/cakephp-databaselog": "2.x-dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "bin": ["lib/Cake/Console/cake"],
+    "config": {
+        "vendor-dir": "Vendor/"
+    },
+    "extra": {
+       "installer-paths": {
+         "app/Plugin/DebugKit": ["cakephp/debug_kit"],
+         "app/Plugin/DatabaseLog": ["dereuromark/cakephp-databaselog"]
+       }
+     }
+}
