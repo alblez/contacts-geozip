@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3559219a453f8d26579493b333aa6235",
-    "content-hash": "98798b4014957d6c9e80f2a0f6561537",
+    "hash": "ca1f46488b883597892f4eff2af307db",
+    "content-hash": "fd661896e14e279da5329b53eb989e97",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -200,58 +200,6 @@
                 "zikula"
             ],
             "time": "2016-07-05 06:18:20"
-        },
-        {
-            "name": "dereuromark/cakephp-databaselog",
-            "version": "2.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dereuromark/CakePHP-DatabaseLog.git",
-                "reference": "9e80393ab779ef320fb0f35646a967a7dbee5f3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/CakePHP-DatabaseLog/zipball/9e80393ab779ef320fb0f35646a967a7dbee5f3e",
-                "reference": "9e80393ab779ef320fb0f35646a967a7dbee5f3e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.8"
-            },
-            "type": "cakephp-plugin",
-            "extra": {
-                "installer-name": "DatabaseLog"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Scherer",
-                    "homepage": "http://www.dereuromark.de",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Nick Baker",
-                    "homepage": "http://www.webtechnick.com",
-                    "role": "Original author"
-                },
-                {
-                    "name": "Other contributors",
-                    "homepage": "https://github.com/dereuromark/CakePHP-DatabaseLog/graphs/contributors"
-                }
-            ],
-            "description": "CakePHP DatabaseLog Plugin",
-            "homepage": "https://github.com/dereuromark/CakePHP-DatabaseLog/",
-            "keywords": [
-                "cakephp",
-                "database",
-                "logging",
-                "logs",
-                "plugin"
-            ],
-            "time": "2014-12-02 21:44:52"
         }
     ],
     "packages-dev": [
@@ -672,9 +620,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "dereuromark/cakephp-databaselog": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
