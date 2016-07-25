@@ -6,6 +6,7 @@ App::uses('AppController', 'Controller');
  * @property User $User
  * @property PaginatorComponent $Paginator
  * @property GeocoderComponent $Geocoder
+ * @property DistanceComponent $Geocoder
  * @property FlashComponent $Flash
  */
 class UsersController extends AppController {
@@ -15,7 +16,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Geocoder', 'Flash');
+	public $components = array('Paginator', 'Geocoder', 'Distance', 'Flash');
 
 /**
  * list method
@@ -67,15 +68,10 @@ class UsersController extends AppController {
  * @return void
  */
 	public function index() {
-		// recupera los usuarios agentes
+		// recupera los usuarios tipo agentes
 		$agents = $this->User->getAgents();
-		// recupera los usuarios contactos
-		$contacts = $this->User->getContacts();
 		
-		$contacts = serialize($this->getCoodinates($contacts));
-
 		$this->set('agents', $agents);
-		$this->set('contacts', $contacts);
 	}
 
 /**
@@ -96,5 +92,42 @@ class UsersController extends AppController {
 		}
 		
 		return $users;
+	}
+
+/**
+ * match method
+ *
+ * @return void
+ */
+	public function match() {
+		// recupera los usuarios tipo contacto, y calcula sus coordenadas
+		$contacts = $this->getCoodinates($this->User->getContacts());
+		// calcula las coordenadas de los agentes enviadas por el formulario
+		$agents = $this->getCoodinates($this->request->data['agents']);
+
+		//define agents 
+		$items = array();
+		foreach ($agents as $key => $agent) {
+			$items[] = [
+					'code' => $agent['User']['code'],
+					'latitude' => $agent['User']['lat'],
+					'longitude' => $agent['User']['lng']
+				     ];
+		}
+
+		// recorre cada contacto para encontrar el mas cercano a cada agente
+		$results = array();
+		foreach ($contacts as $key => $contact) {
+			$distance = $this->Distance->getClosest($contact['User']['lat'], $contact['User']['lng'], $items);
+			$results[] = [
+					'AgentCode' => $distance['code'],
+					'ContactName' => $contact['User']['name'],
+					'ContactZipcode' => $contact['User']['zipcode'],
+					'Distance' => $distance['distance']
+				     ];
+		}
+		
+		$this->set('matches', $results);
+
 	}
 }
