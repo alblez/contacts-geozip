@@ -80,4 +80,19 @@ class User extends AppModel {
 				]);
 	}
 
+/**
+ *  getContacts method
+ * Extrae todos los agentes
+ * @return array
+ */
+	public  function getContacts()
+	{
+		return $this->find(
+				'all',
+				[
+				'fields'  => ['id','name', 'zipcode'],
+				'conditions' => ['group_id' => 2],
+				]);
+	}
+
 }

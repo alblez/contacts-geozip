@@ -5,8 +5,7 @@ App::uses('AppController', 'Controller');
  *
  * @property User $User
  * @property PaginatorComponent $Paginator
- * @property nComponent $n
- * @property SessionComponent $Session
+ * @property GeocoderComponent $Geocoder
  * @property FlashComponent $Flash
  */
 class UsersController extends AppController {
@@ -16,7 +15,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session', 'Flash');
+	public $components = array('Paginator', 'Geocoder', 'Flash');
 
 /**
  * list method
@@ -70,6 +69,32 @@ class UsersController extends AppController {
 	public function index() {
 		// recupera los usuarios agentes
 		$agents = $this->User->getAgents();
+		// recupera los usuarios contactos
+		$contacts = $this->User->getContacts();
+		
+		$contacts = serialize($this->getCoodinates($contacts));
+
 		$this->set('agents', $agents);
+		$this->set('contacts', $contacts);
+	}
+
+/**
+ * getCoodinates method
+ * Calcula coordenadas para cada codigo zip
+ * @return array
+ */
+	private function getCoodinates($users) {
+
+		foreach ($users as $key => $value) {
+			if  (!empty($geoCode = $this->Geocoder->geocode((string) $value['User']['zipcode']))) {
+				$users[$key]['User']['lat']= $geoCode[0]->geometry->location->lat;
+				$users[$key]['User']['lng']=$geoCode[0]->geometry->location->lng;
+			} 
+			// agrega un delay de un segundo por limitaciones del api de google
+			sleep(1);
+			
+		}
+		
+		return $users;
 	}
 }
