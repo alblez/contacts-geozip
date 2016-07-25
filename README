@@ -1,0 +1,13 @@
+# Agents Match Contacts
+
+The goal of this exercise is to implement in PHP an application that displays the match between 2 actors: the Agents and a list of Contacts. You should be able to split the contact list into 2 groups (1 per agent) based on their zip codes. This intelligent match will use just 1 rule “Location”.
+
+### Solucion
+La base de datos esta compuesta de dos entidades: Groups y Users,
+ - Groups con dos campos; id y nombre, con dos registros Agents y Contacts y se relaciona con Users a travez de group_id
+ - Users con los campos: id, code, group_id, name, zipcode.
+
+### PHP 
+ - Se implemento en el framework CakePHP 2.8
+ - para la conversion de codigos zip a coodenadas se implemento google maps api atravez de un componente
+ - para el calculo de distacia se adapto la siguiente clase: https://github.com/jeroendesloovere/distance, atravez de un componente
